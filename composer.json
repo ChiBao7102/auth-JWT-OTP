@@ -32,7 +32,8 @@
 		"jaybizzle/laravel-migrations-organiser": "^6.3",
 		"laravel/framework": "^10.0",
 		"laravel/sanctum": "^3.2",
-		"laravel/tinker": "^2.8"
+		"laravel/tinker": "^2.8",
+		"php-open-source-saver/jwt-auth": "^2.1"
 	},
 	"require-dev": {
 		"bamarni/composer-bin-plugin": "^1.8",

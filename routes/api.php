@@ -13,6 +13,8 @@ use App\Http\Controllers\API\AuthController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
+| Route::get('getUser', 'getInfo');
+| ___________'name route'__' function '_;
 */
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

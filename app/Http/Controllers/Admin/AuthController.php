@@ -7,11 +7,15 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Services\User\UserService;
 
 class AuthController extends Controller
 {
-    public function __construct()
+    protected UserService $userService;
+
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
         $this->middleware('auth:admin', ['except' => ['login', 'register']]);
     }
 
@@ -54,6 +58,22 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'User created successfully',
+            'user' => $user
+        ]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'message' => 'Successfully logged out',
+        ]);
+    }
+
+    public function getAllUser(){
+        $user = $this->userService->getAllImplement();
+        return response()->json([
+            'message' => 'Successfully logged info all User',
             'user' => $user
         ]);
     }

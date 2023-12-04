@@ -72,7 +72,6 @@ class AuthController extends Controller
 
     public function getInfo()
     {
-        dd(Auth::check());
         $user = Auth::user();
         return response()->json([
             'message' => 'Successfully logged info',

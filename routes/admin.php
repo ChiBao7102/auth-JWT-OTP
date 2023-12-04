@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\AuthController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
+| Route::get('getAllUser', 'getAllUser');
+| ___________'name route'__' function '_;
 */
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -24,5 +26,5 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     // Route::post('refresh', 'refresh');
-    // Route::get('getUser', 'getInfo');
+    Route::get('getAllUser', 'getAllUser');
 });

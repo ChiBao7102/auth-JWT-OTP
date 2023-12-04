@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\User\UserService;
+use App\Traits\ApiResponse;
 
 class AuthController extends Controller
 {
+    use ApiResponse;
     protected UserService $userService;
 
     public function __construct(UserService $userService)
@@ -28,13 +30,10 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $token = Auth::guard('admin')->attempt($credentials);
         if (!$token) {
-            return response()->json([
-                'message' => 'Unauthorized',
-            ], 401);
+            return $this->error(null, 'Unauthorized', 401);
         }
 
         $user = Auth::guard('admin')->user();
-        // dd($user);
         return response()->json([
             'user' => $user,
             'authorization' => [
@@ -56,10 +55,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return response()->json([
-            'message' => 'User created successfully',
-            'user' => $user
-        ]);
+        return $this->success($user, 'User created successfully', 200);
     }
 
     public function logout()
@@ -72,9 +68,6 @@ class AuthController extends Controller
 
     public function getAllUser(){
         $user = $this->userService->getAllImplement();
-        return response()->json([
-            'message' => 'Successfully logged info all User',
-            'user' => $user
-        ]);
+        return $this->success($user, 'Successfully logged info all User', 200);
     }
 }

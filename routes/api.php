@@ -26,5 +26,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
-    Route::get('getUser', 'getInfo');
+});
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/getUser', [AuthController::class, 'getInfo']);
 });

@@ -26,5 +26,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     // Route::post('refresh', 'refresh');
-    Route::get('getAllUser', 'getAllUser');
+});
+
+Route::group(['middleware' => 'auth:admin'], function () {
+    Route::get('/getAllUser', [AuthController::class, 'getAllUser']);
 });

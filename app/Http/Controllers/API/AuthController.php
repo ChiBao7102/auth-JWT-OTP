@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Mail\testSendMail;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -70,6 +72,7 @@ class AuthController extends Controller
     public function getInfo()
     {
         $user = Auth::user();
+        Mail::to($user->email)->send(new testSendMail($user));
         return response()->json([
             'message' => 'Successfully logged info',
             'user' => $user

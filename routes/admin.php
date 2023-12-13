@@ -30,4 +30,5 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('/getAllUser', [AuthController::class, 'getAllUser']);
+    Route::delete('/delete/{id}', [AuthController::class, 'deleteUser']);
 });

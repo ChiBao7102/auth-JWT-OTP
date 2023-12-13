@@ -21,4 +21,8 @@ class UserServiceImplement extends Service implements UserService{
     public function getAllImplement(){
         return $this->mainRepository->getAll();
     }
+
+    public function deleteUser($id){
+        return $this->mainRepository->findOrFail($id)->delete();
+    }
 }

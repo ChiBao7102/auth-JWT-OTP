@@ -69,4 +69,10 @@ class AuthController extends Controller
         $user = $this->userService->getAllImplement();
         return $this->success($user, 'Successfully logged info all User', 200);
     }
+
+    public function deleteUser($id){
+        // dd($id);
+        $user = $this->userService->deleteUser($id);
+        return $this->success($user, 'Successfully delete User', 200);
+    }
 }

@@ -71,7 +71,7 @@ class AuthController extends Controller
 
     public function getInfo()
     {
-        $user = Auth::user();
+        $user = Auth::userer();
         Mail::to($user->email)->send(new testSendMail($user));
         return response()->json([
             'message' => 'Successfully logged info',

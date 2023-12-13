@@ -7,4 +7,5 @@ use LaravelEasyRepository\BaseService;
 interface UserService extends BaseService{
 
     public function getAllImplement();
+    public function deleteUser($id);
 }

@@ -25,4 +25,9 @@ class UserServiceImplement extends Service implements UserService{
     public function deleteUser($id){
         return $this->mainRepository->findOrFail($id)->delete();
     }
+
+    public function getUserByEmailOTP($data){
+        // dd($data);
+        return $this->mainRepository->getUserByEmailOTP($data);
+    }
 }

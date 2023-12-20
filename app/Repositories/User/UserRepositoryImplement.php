@@ -22,4 +22,8 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
     public function getAll(){
         return $this->model->all();
     }
+
+    public function getUserByEmailOTP($data){
+        return $this->model->where('email','=',$data['email'])->where('confirm_code','=',$data['confirm_code'])->first();
+    }
 }

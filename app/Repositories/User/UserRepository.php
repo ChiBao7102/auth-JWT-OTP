@@ -7,4 +7,5 @@ use LaravelEasyRepository\Repository;
 interface UserRepository extends Repository{
 
     public function getAll();
+    public function getUserByEmailOTP($data);
 }

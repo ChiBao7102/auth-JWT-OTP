@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        //Run at 00:00 everyday
+        $schedule->command('remove-user-expired-register')->dailyAt('00:00');
     }
 
     /**

@@ -33,13 +33,13 @@ class AuthController extends Controller
         }
 
         $user = Auth::guard('admin')->user();
-        return response()->json([
+        return $this->success([
             'user' => $user,
             'authorization' => [
                 'token' => $token,
                 'type' => 'bearer',
             ]
-        ]);
+        ],'Unauthorized', 200);
     }
 
     public function register(Request $request)
@@ -68,5 +68,10 @@ class AuthController extends Controller
     public function getAllUser(){
         $user = $this->userService->getAllImplement();
         return $this->success($user, 'Successfully logged info all User', 200);
+    }
+
+    public function deleteUser($id){
+        $user = $this->userService->deleteUser($id);
+        return $this->success($user, 'Successfully delete User', 200);
     }
 }

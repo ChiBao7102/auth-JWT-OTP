@@ -10,12 +10,14 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -26,6 +28,9 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'confirm_status',
+        'confirm_code',
+        'expired_confirm_code',
     ];
 
     /**
@@ -36,6 +41,8 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password',
         'remember_token',
+        'confirm_code',
+        'expired_confirm_code',
     ];
 
     /**

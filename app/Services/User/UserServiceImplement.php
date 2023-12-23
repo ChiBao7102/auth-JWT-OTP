@@ -27,7 +27,11 @@ class UserServiceImplement extends Service implements UserService{
     }
 
     public function getUserByEmailOTP($data){
-        // dd($data);
         return $this->mainRepository->getUserByEmailOTP($data);
     }
+
+    public function getUserByEmail($data){
+        return $this->mainRepository->getUserByEmail($data);
+    }
+
 }

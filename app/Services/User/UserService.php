@@ -9,4 +9,5 @@ interface UserService extends BaseService{
     public function getAllImplement();
     public function deleteUser($id);
     public function getUserByEmailOTP($data);
+    public function getUserByEmail($data);
 }

@@ -31,6 +31,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(VerifyOTPController::class)->group(function () {
     Route::post('verify-otp', 'verifyOTPCode');
+    Route::post('register-otp', 'registerOTP');
 });
 
 Route::group(['middleware' => 'auth:api'], function () {

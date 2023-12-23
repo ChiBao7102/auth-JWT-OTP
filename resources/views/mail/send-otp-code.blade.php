@@ -99,7 +99,7 @@
               to complete the procedure to change your email address. OTP is
               valid for
               <span style="font-weight: 600; color: #1f1f1f;">60 senconds</span>.
-              Do not share this code with others, including BaoCao
+              Do not share this code with others, including BaoCao's
               employees.
             </p>
             <p

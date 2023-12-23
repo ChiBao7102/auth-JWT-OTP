@@ -33,13 +33,13 @@ class AuthController extends Controller
         }
 
         $user = Auth::guard('admin')->user();
-        return response()->json([
+        return $this->success([
             'user' => $user,
             'authorization' => [
                 'token' => $token,
                 'type' => 'bearer',
             ]
-        ]);
+        ],'Unauthorized', 200);
     }
 
     public function register(Request $request)

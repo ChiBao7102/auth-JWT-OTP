@@ -8,6 +8,7 @@ use App\Http\Requests\VerifyOTPRequest;
 use App\Services\User\UserService;
 use Illuminate\Support\Carbon;
 use App\Traits\ApiResponse;
+use App\Mail\SendOTPCode;
 
 class VerifyOTPController extends Controller
 {
@@ -33,17 +34,24 @@ class VerifyOTPController extends Controller
             $user->save();
             return $this->success($user, 'Successfully verified', 200);
         }
-        return response()->json([
-            'message' => 'Successfully logged info',
-            'user' => $user
-        ]);
     }
 
-    public function register_OTP(Request $request){
+    public function registerOTP(Request $request){
         $request->validate([
             'email' => 'required|string|email',
         ]);
-
+        $user = $this->userService->getUserByEmail($request->email);
+        if($user){
+            if($user['confirm_status']){
+                return $this->error(null, 'Your email was verified', 401);
+            }else {
+                $user->confirm_code = random_int(100000, 999999);
+                $user->expired_confirm_code = Carbon::now()->addSecond(60);
+                $this->userService->update($user->id, $user->toArray());
+                \Mail::to($user->email)->send(new SendOTPCode($user));
+                return $this->success(null, 'Registered again,verify your email address to register', 200);
+            }
+        }
     }
 
 }

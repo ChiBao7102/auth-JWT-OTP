@@ -33,7 +33,6 @@ class AuthController extends Controller
         if (!$token) {
             return $this->error(null,'Unauthorized', 401);
         }
-
         $user = Auth::user();
         return $this->success([
             'user' => $user,
@@ -61,7 +60,6 @@ class AuthController extends Controller
         ]);
         $user = $this->userService->getUserByEmail($request->email);
         Mail::to($user->email)->send(new SendOTPCode($user));
-
         return $this->success($user, 'User created successfully', 200);
     }
 

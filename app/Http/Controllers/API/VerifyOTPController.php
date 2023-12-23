@@ -51,6 +51,8 @@ class VerifyOTPController extends Controller
                 \Mail::to($user->email)->send(new SendOTPCode($user));
                 return $this->success(null, 'Registered again,verify your email address to register', 200);
             }
+        }else{
+            return $this->error(null, 'User doesn\'t exist', 400);
         }
     }
 

@@ -71,7 +71,6 @@ class AuthController extends Controller
     }
 
     public function deleteUser($id){
-        // dd($id);
         $user = $this->userService->deleteUser($id);
         return $this->success($user, 'Successfully delete User', 200);
     }

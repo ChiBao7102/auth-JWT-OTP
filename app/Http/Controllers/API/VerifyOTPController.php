@@ -46,8 +46,8 @@ class VerifyOTPController extends Controller
                 return $this->error(null, 'Your email was verified', 401);
             }else {
                 $user->confirm_code = random_int(100000, 999999);
-                $user->expired_confirm_code = Carbon::now()->addSecond(60);
-                $this->userService->update($user->id, $user->toArray());
+                $user->expired_confirm_code = Carbon::now()->addSecond(120);
+                $this->userService->update($user->id, $user->getAttributes());
                 \Mail::to($user->email)->send(new SendOTPCode($user));
                 return $this->success(null, 'Registered again,verify your email address to register', 200);
             }

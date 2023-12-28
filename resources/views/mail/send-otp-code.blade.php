@@ -98,7 +98,7 @@
               Thank you for choosing BaoCao Company. Use the following OTP
               to complete the procedure to change your email address. OTP is
               valid for
-              <span style="font-weight: 600; color: #1f1f1f;">60 senconds</span>.
+              <span style="font-weight: 600; color: #1f1f1f;">120 senconds</span>.
               Do not share this code with others, including BaoCao's
               employees.
             </p>

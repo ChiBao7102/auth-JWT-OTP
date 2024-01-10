@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-job:
+jobs:
   create-deployment-artifacts:
     name: Create deploy artifacts
     runs-on: ubuntu-20.04

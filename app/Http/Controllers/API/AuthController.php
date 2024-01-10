@@ -67,6 +67,17 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/getUser",
+     *     summary="Get a info of user",
+     *     description="Returns a info of user",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successfully logged info"
+     *     )
+     * )
+     */
     public function getInfo()
     {
         $user = Auth::user();

@@ -16,7 +16,7 @@ class RegisterEmail implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $user = \DB::table('users')->where('email','=',$value)->get();
-        if(!empty(get_object_vars($user))){
+        if(!empty((array) $user)){
             if(!$user[0]->confirm_status){
                 $dateReRegister =  Carbon::parse($user[0]->created_at)->addDays(7)->format('d/m/Y');
                 $fail('Your :attribute has been previously registered but has not been verified via OTP. Please re-register at '. $dateReRegister);

@@ -28,10 +28,9 @@ class RemoveUserExpriedRegister extends Command
     public function handle()
     {
         $numberOfDays = 7;
-        $currentDate = Carbon::now()->toDateString();
-        DB::table('users')
+        $user = DB::table('users')
             ->where('confirm_status', '=', false)
-            ->where(DB::raw("DATEDIFF(created_at, '{$currentDate}')"), '=', $numberOfDays)
+            ->whereRaw("DATEDIFF(NOW(), created_at) >= {$numberOfDays}")
             ->delete();
     }
 }

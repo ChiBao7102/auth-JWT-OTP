@@ -51,7 +51,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'confirm_code' => random_int(100000, 999999),
-            'expired_confirm_code' => Carbon::now()->addSecond(60),
+            'expired_confirm_code' => Carbon::now()->addSecond(120),
             'expired_register_in' => Carbon::now(),
         ]);
         $user = $this->userService->getUserByEmail($request->email);

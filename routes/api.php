@@ -26,7 +26,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
     Route::post('logout', 'logout');
-    Route::post('refresh', 'refresh');
+    Route::post('forgot-password', 'forgotPassword');
+    Route::post('reset-password/{token}', 'resetPassword');
 });
 
 Route::controller(VerifyOTPController::class)->group(function () {
@@ -35,5 +36,7 @@ Route::controller(VerifyOTPController::class)->group(function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('/getUser', [AuthController::class, 'getInfo']);
+    Route::prefix('user')->group(function () {
+        Route::get('/', [AuthController::class, 'getInfo']);
+    });
 });

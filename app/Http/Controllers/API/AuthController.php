@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Services\User\UserService;
 use App\Mail\SendOTPCode;
+use App\Mail\ResetPasswordMail;
 use App\Traits\ApiResponse;
 
 class AuthController extends Controller
@@ -65,6 +66,38 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Successfully logged out',
         ]);
+    }
+
+    public function forgotPassword(Request $request){
+        $request->validate([
+            'email' => 'required|string|email',
+        ]);
+        $data = [
+            'email' => $request->email,
+            'exp' => Carbon::now()->addSecond(300)
+        ];
+        $token = base64_encode(json_encode($data));
+        $hostwithHttp = request()->getSchemeAndHttpHost();
+        Mail::to($request->email)->send(new ResetPasswordMail($hostwithHttp."/api/reset-password/".$token));
+        return $this->success(null,'Successfully sent email reset password',200);
+    }
+
+    public function resetPassword(Request $request, $token){
+        $data = (array)json_decode(base64_decode($token));
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+        $user = $this->userService->getUserByEmail($data['email']);
+        if (!$user || !$user->confirm_status) {
+            return $this->error(null,'User not found', 404);
+        }
+        if (Carbon::now()->gt($data['exp'])) {
+            return $this->error(null, 'Password change request has expired', 400);
+        }
+        $user->password = Hash::make($request->password);
+        $this->userService->update($user->id, $user->getAttributes());
+        return $this->success(null,'Successfully reset your password',200);
     }
 
     public function getInfo()

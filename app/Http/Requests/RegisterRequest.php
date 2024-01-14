@@ -31,7 +31,8 @@ class RegisterRequest extends FormRequest
                         new RegisterEmail(),
                         'unique:users'
                     ],
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required'
         ];
     }
 }

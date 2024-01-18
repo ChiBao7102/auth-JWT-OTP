@@ -27,7 +27,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('forgot-password', 'forgotPassword');
-    Route::post('reset-password/{token}', 'resetPassword');
+    Route::put('reset-password/{token}', 'resetPassword');
 });
 
 Route::controller(VerifyOTPController::class)->group(function () {

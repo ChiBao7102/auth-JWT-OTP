@@ -72,8 +72,13 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string|email',
         ]);
+        $user = $this->userService->getUserByEmail($request->email);
+        if (!$user || !$user->confirm_status) {
+            return $this->error(null,'User not found', 404);
+        }
         $data = [
-            'email' => $request->email,
+            'email' => $user->email,
+            'confirm_code' => $user->confirm_code,
             'exp' => Carbon::now()->addSecond(300)
         ];
         $token = base64_encode(json_encode($data));
@@ -84,18 +89,20 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request, $token){
         $data = (array)json_decode(base64_decode($token));
+        $time = array_pop($data);
         $request->validate([
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required'
         ]);
-        $user = $this->userService->getUserByEmail($data['email']);
-        if (!$user || !$user->confirm_status) {
-            return $this->error(null,'User not found', 404);
-        }
-        if (Carbon::now()->gt($data['exp'])) {
+        $user = $this->userService->getUserByEmailOTP($data);
+        if (Carbon::now()->gt($time)) {
             return $this->error(null, 'Password change request has expired', 400);
         }
+        if (!$user) {
+            return $this->error(null,'Password change request is no longer valid', 400);
+        }
         $user->password = Hash::make($request->password);
+        $user->confirm_code = random_int(100000, 999999);
         $this->userService->update($user->id, $user->getAttributes());
         return $this->success(null,'Successfully reset your password',200);
     }

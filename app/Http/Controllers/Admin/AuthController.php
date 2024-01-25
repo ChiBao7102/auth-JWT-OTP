@@ -29,7 +29,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $token = Auth::guard('admin')->attempt($credentials);
         if (!$token) {
-            return $this->error(null, 'Unauthorized', 401);
+            return $this->error(null,config('constants.auth.HTTP_UNAUTHORIZED'), 401);
         }
 
         $user = Auth::guard('admin')->user();
@@ -39,7 +39,7 @@ class AuthController extends Controller
                 'token' => $token,
                 'type' => 'bearer',
             ]
-        ],'Unauthorized', 200);
+        ],config('constants.auth.HTTP_LOGIN_SUCCESS'), 200);
     }
 
     public function register(Request $request)
@@ -54,24 +54,22 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return $this->success($user, 'User created successfully', 200);
+        return $this->success($user, config('constants.auth.HTTP_REGISTER_SUCCESS'), 200);
     }
 
     public function logout()
     {
         Auth::logout();
-        return response()->json([
-            'message' => 'Successfully logged out',
-        ]);
+        return $this->success(null, config('constants.auth.HTTP_LOGOUT_SUCCESS'), 200);
     }
 
     public function getAllUser(){
         $user = $this->userService->getAllImplement();
-        return $this->success($user, 'Successfully logged info all User', 200);
+        return $this->success($user, config('constants.user.get_all_info_success'), 200);
     }
 
     public function deleteUser($id){
         $user = $this->userService->deleteUser($id);
-        return $this->success($user, 'Successfully delete User', 200);
+        return $this->success($user, config('constants.user.delete_success'), 200);
     }
 }

@@ -20,8 +20,7 @@ jobs:
           extensions: mbstring, ctype, fileinfo, openssl, PDO, bcmath, json, tokenizer, xml
 
       - name: Install Composer dependencies
-        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-
+        run: composer install
       - name: Copy .env.example to .env
         run: php -r "file_exists('.env') || copy('.env.dev', '.env');"
 

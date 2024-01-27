@@ -28,5 +28,6 @@
             'get_info_success' => 'Get info success',
             'get_all_info_success' => 'Get all info success',
             'delete_success' => 'Delete success',
+            'update_success' => 'Update success',
         ]
     ];

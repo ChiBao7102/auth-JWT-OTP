@@ -1,9 +1,8 @@
 name: deploy-application
 
-on:
-  push:
-    branches:
-      - main
+on: push
+    # branches:
+    #   - main
 jobs:
   create-deployment-artifacts:
     name: Create deploy artifacts

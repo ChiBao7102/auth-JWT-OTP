@@ -45,19 +45,18 @@ class VerifyOTPController extends Controller
             ]
         );
         $user = $this->userService->getUserByEmail($request->email);
-        if($user) {
-            if($user['confirm_status']) {
+        if ($user) {
+            if ($user['confirm_status']) {
                 return $this->error(null, config('constants.request_OTP.user_was_verified'), 401);
-            }else {
+            } else {
                 $user->confirm_code = random_int(100000, 999999);
                 $user->expired_confirm_code = Carbon::now()->addSecond(120);
                 $this->userService->update($user->id, $user->getAttributes());
                 \Mail::to($user->email)->send(new SendOTPCode($user));
                 return $this->success(null, config('constants.request_OTP.register_otp_success'), 200);
             }
-        }else{
+        } else {
             return $this->error(null, config('constants.request_OTP.user_not_found'), 400);
         }
     }
-
 }

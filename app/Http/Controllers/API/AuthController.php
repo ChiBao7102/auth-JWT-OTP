@@ -41,12 +41,14 @@ class AuthController extends Controller
         $user = Auth::user();
         return $this->success(
             [
-            'user' => $user,
-            'authorization' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-            ], config('constants.auth.HTTP_LOGIN_SUCCESS'), 200
+                'user' => $user,
+                'authorization' => [
+                    'token' => $token,
+                    'type' => 'bearer',
+                ]
+            ],
+            config('constants.auth.HTTP_LOGIN_SUCCESS'),
+            200
         );
     }
 

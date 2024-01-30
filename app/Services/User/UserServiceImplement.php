@@ -38,5 +38,4 @@ class UserServiceImplement extends Service implements UserService
     {
         return $this->mainRepository->getUserByEmail($data);
     }
-
 }

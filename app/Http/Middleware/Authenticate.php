@@ -20,9 +20,9 @@ class Authenticate extends Middleware
      */
     public function handle($request, Closure $next, ...$guards)
     {
-        if(Auth::guard($guards[0])->check() && Auth::guard($guards[0])->user()) {
+        if (Auth::guard($guards[0])->check() && Auth::guard($guards[0])->user()) {
             return $next($request);
-        }else{
+        } else {
             return $this->error(null, 'You should be login before use it', 401);
         }
     }

@@ -45,9 +45,10 @@
 		"mockery/mockery": "^1.4",
 		"neronmoon/scriptsdev": "^0.1",
 		"nunomaduro/collision": "^7.0",
-		"spatie/laravel-ignition": "^2.0",
 		"phpunit/phpunit": "^10.4",
-		"roave/security-advisories": "dev-latest"
+		"roave/security-advisories": "dev-latest",
+		"spatie/laravel-ignition": "^2.0",
+		"squizlabs/php_codesniffer": "*"
 	},
 	"config": {
 		"optimize-autoloader": true,

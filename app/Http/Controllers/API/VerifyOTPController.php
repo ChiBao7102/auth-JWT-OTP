@@ -19,7 +19,8 @@ class VerifyOTPController extends Controller
         $this->userService = $userService;
     }
 
-    public function verifyOTPCode(VerifyOTPRequest $request){
+    public function verifyOTPCode(VerifyOTPRequest $request)
+    {
         $user = $this->userService->getUserByEmailOTP($request->all());
         if (!$user) {
             return $this->error(null, config('constants.request_OTP.user_not_found'), 400);
@@ -36,13 +37,16 @@ class VerifyOTPController extends Controller
         }
     }
 
-    public function registerOTP(Request $request){
-        $request->validate([
+    public function registerOTP(Request $request)
+    {
+        $request->validate(
+            [
             'email' => 'required|string|email',
-        ]);
+            ]
+        );
         $user = $this->userService->getUserByEmail($request->email);
-        if($user){
-            if($user['confirm_status']){
+        if($user) {
+            if($user['confirm_status']) {
                 return $this->error(null, config('constants.request_OTP.user_was_verified'), 401);
             }else {
                 $user->confirm_code = random_int(100000, 999999);

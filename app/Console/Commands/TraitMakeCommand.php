@@ -28,10 +28,10 @@ class TraitMakeCommand extends GeneratorCommand
     protected $type = 'Trait';
 
         /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
+         * Get the stub file for the generator.
+         *
+         * @return string
+         */
     protected function getStub()
     {
         return app_path(). '/Console/stubs/traits.stub';

@@ -16,14 +16,14 @@ class Authenticate extends Middleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
     public function handle($request, Closure $next, ...$guards)
     {
-        if(Auth::guard($guards[0])->check() && Auth::guard($guards[0])->user()){
+        if(Auth::guard($guards[0])->check() && Auth::guard($guards[0])->user()) {
             return $next($request);
         }else{
-            return $this->error(null,'You should be login before use it',401);
+            return $this->error(null, 'You should be login before use it', 401);
         }
     }
 }

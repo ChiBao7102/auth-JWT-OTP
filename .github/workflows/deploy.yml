@@ -23,6 +23,7 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install
+
       - name: Copy .env.example to .env
         run: php -r "file_exists('.env') || copy('.env.dev', '.env');"
 
@@ -40,10 +41,15 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: php artisan migrate --force
+
+      - uses: tinovyatkin/action-php-codesniffer@v1
+        with:
+          files: "**.php" # you may customize glob as needed
+          phpcs_path: php phpcs.phar
+          standard: phpcs.xml
+
       - name: Run unit tests via PHPUnit
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
-
-
